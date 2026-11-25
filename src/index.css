@@ -1,0 +1,1278 @@
+/* ==========================================================================
+   TEZ TAOM - Bosh sahifa stillari
+   Uslub: Oq fon (Kunduzgi) va To'q fon (Tungi), To'q sariq tugmalar
+   Grid: kompyuterda 4 ustun, telefonda 2 ustun
+   ========================================================================== */
+
+:root {
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* KUNDUZGI REJIM (LIGHT MODE) */
+  --bg-color: #ffffff;
+  --card-bg: #ffffff;
+  --text-color: #1e293b;
+  --text-muted: #64748b;
+  --border-color: #ffe3d1; /* Skrinshotdagi kabi nozik to'q sariq hoshiya */
+  --border-light: #f1f5f9;
+  
+  /* To'q sariq ranglar */
+  --orange: #ff6600;
+  --orange-hover: #e55c00;
+  --orange-light: #fdf4ec; /* Dumaloq rasm orqa foni */
+  --orange-glow: rgba(255, 102, 0, 0.35);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --transition: all 0.22s ease-in-out;
+}
+
+/* TUNGI REJIM (DARK MODE) */
+body.dark-mode {
+  --bg-color: #0b1120; /* Chuqur tungi moviy/qora fon */
+  --card-bg: #1e293b; /* Qora/slate kartochka foni */
+  --text-color: #f8fafc; /* Yorqin oq matn */
+  --text-muted: #94a3b8; /* Mayin kulrang matn */
+  --border-color: #334155; /* Slate hoshiya */
+  --border-light: #1e293b;
+  
+  --orange-light: #27140a; /* To'q rangli olovrang aylana foni */
+  --orange-glow: rgba(255, 102, 0, 0.45);
+}
+
+/* Reset va baza */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: var(--transition);
+}
+
+/* ==========================================================================
+   1. NAVBAR (Logo, Rejim tugmasi va «Savat»)
+   ========================================================================== */
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-color);
+  border-bottom: 1.5px solid var(--border-light);
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  transition: var(--transition);
+}
+
+body.dark-mode .navbar {
+  background-color: #0f172a;
+  border-bottom-color: #1e293b;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.logo-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-color);
+}
+
+.logo-highlight {
+  color: var(--orange);
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Kunduzgi / Tungi Rejim tugmasi */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background-color: #f1f5f9;
+  border: 1.5px solid #e2e8f0;
+  color: var(--text-color);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 700;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  transform: translateY(-1px);
+}
+
+body.dark-mode .theme-toggle-btn {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .theme-toggle-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.theme-toggle-icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.theme-toggle-label {
+  font-size: 0.88rem;
+}
+
+/* Savat tugmasi */
+.cart-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--orange);
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow: 0 4px 14px var(--orange-glow);
+}
+
+.cart-btn:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-2px);
+}
+
+.cart-icon {
+  font-size: 1.15rem;
+}
+
+.cart-badge {
+  background-color: #ffffff;
+  color: var(--orange);
+  font-size: 0.8rem;
+  font-weight: 800;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: badgePop 0.3s ease;
+}
+
+@keyframes badgePop {
+  0% { transform: scale(0.6); }
+  60% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   2. HERO (Sarlavha va «Buyurtma berish» tugmasi)
+   ========================================================================== */
+.hero {
+  background-color: var(--bg-color);
+  padding: 50px 0 35px;
+  transition: var(--transition);
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background-color: var(--orange-light);
+  color: var(--orange);
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+  border: 1px solid #fed7aa;
+}
+
+body.dark-mode .hero-badge {
+  background-color: #27140a;
+  border-color: #7c2d12;
+  color: #ff944d;
+}
+
+.hero-title {
+  font-size: 2.7rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+
+.hero-highlight {
+  color: var(--orange);
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 26px;
+  max-width: 500px;
+}
+
+.hero-btn-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.order-btn {
+  background-color: var(--orange);
+  color: #ffffff;
+  padding: 14px 34px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  border-radius: var(--radius-full);
+  box-shadow: 0 6px 18px var(--orange-glow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-btn:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 102, 0, 0.45);
+}
+
+.hero-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-emoji-circle {
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background-color: var(--orange-light);
+  border: 4px dashed #ffcaa6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(255, 102, 0, 0.12);
+  overflow: hidden;
+}
+
+body.dark-mode .hero-emoji-circle {
+  background-color: #1e293b;
+  border-color: #9a3412;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.hero-dish-img {
+  width: 190px;
+  height: 190px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* ==========================================================================
+   3. KATEGORIYALAR (5 ta tugma)
+   ========================================================================== */
+.categories-section {
+  background-color: var(--bg-color);
+  padding: 24px 0 16px;
+  transition: var(--transition);
+}
+
+.section-heading {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.categories-list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.category-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-full);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-color);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.category-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+  background-color: var(--orange-light);
+  transform: translateY(-2px);
+}
+
+.category-btn.active {
+  background-color: var(--orange);
+  border-color: var(--orange);
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--orange-glow);
+}
+
+.category-emoji {
+  font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   4. TAOMLAR GRID & FOODCARD
+   Kompyuterda 4 ustun, telefonda 2 ustun
+   ========================================================================== */
+.food-grid-section {
+  background-color: var(--bg-color);
+  padding: 24px 0 60px;
+  transition: var(--transition);
+}
+
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Kompyuterda 4 ustun */
+  gap: 24px;
+}
+
+.no-food-text {
+  color: var(--text-muted);
+  font-size: 1rem;
+  padding: 30px 0;
+}
+
+/* FoodCard - Foydalanuvchi yuborgan skrinshot bilan 1-ga-1 mos dizayn */
+.food-card {
+  background-color: var(--card-bg);
+  border: 1.5px solid var(--border-color); /* Engil to'q sariq yoki slate hoshiya */
+  border-radius: var(--radius-lg); /* 20px yumaloq */
+  padding: 24px 20px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  transition: var(--transition);
+  position: relative;
+  cursor: pointer;
+}
+
+body.dark-mode .food-card {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+}
+
+.food-card:hover {
+  border-color: #ff9955;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.14);
+}
+
+body.dark-mode .food-card:hover {
+  border-color: var(--orange);
+  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.22);
+}
+
+/* Dumaloq rasm konteyneri (skrinshotdagi fon) */
+.food-img-circle {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background-color: var(--orange-light);
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(255, 102, 0, 0.08);
+}
+
+.food-img {
+  width: 82px;
+  height: 82px;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+
+.food-card:hover .food-img {
+  transform: scale(1.08);
+}
+
+.food-emoji {
+  font-size: 3.2rem;
+  user-select: none;
+}
+
+.food-emoji-fallback {
+  font-size: 3rem;
+  user-select: none;
+}
+
+.food-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.food-name {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+/* Narx: 12,000 so'm (skrinshotdagi kabi to'q sariq va qalin) */
+.food-price {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--orange);
+  margin-bottom: 16px;
+  margin-top: auto;
+}
+
+/* Tugma o'rashi (relative) */
+.btn-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* To'q sariq «Savatga» tugmasi */
+.add-to-cart-btn {
+  width: 100%;
+  background-color: var(--orange);
+  color: #ffffff;
+  padding: 12px;
+  font-size: 0.98rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 14px var(--orange-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.add-to-cart-btn:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 102, 0, 0.45);
+}
+
+.add-to-cart-btn:active {
+  transform: scale(0.97);
+}
+
+.in-card-count {
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   +1 ANIMATSIYASI (Tugma bosilganda yuqoriga uchib chiquvchi +1 nishoni)
+   ========================================================================== */
+.plus-one-float {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--orange);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 3px 12px;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  box-shadow: 0 4px 14px rgba(255, 102, 0, 0.5);
+  border: 1.5px solid #ffffff;
+  animation: floatPlusOne 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 20;
+}
+
+.hero-plus-one {
+  top: -24px;
+  font-size: 1.15rem;
+  padding: 4px 14px;
+}
+
+@keyframes floatPlusOne {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.5);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -15px) scale(1.2);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -32px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50px) scale(0.85);
+  }
+}
+
+/* ==========================================================================
+   TAOMNING TO'LIQ MA'LUMOT MODALI (FoodDetailModal)
+   ========================================================================== */
+.food-detail-modal {
+  background-color: var(--card-bg);
+  border-radius: 24px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  border: 1.5px solid var(--border-color);
+  position: relative;
+  animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.dark-mode .food-detail-modal {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.detail-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(4px);
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  transition: var(--transition);
+}
+
+body.dark-mode .detail-modal-close {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+.detail-modal-close:hover {
+  background-color: var(--orange);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.detail-img-wrap {
+  width: 100%;
+  height: 240px;
+  background-color: var(--orange-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.detail-food-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-emoji-fallback {
+  font-size: 5rem;
+}
+
+.detail-body {
+  padding: 24px;
+}
+
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.detail-badge-halal {
+  display: inline-block;
+  background-color: #ecfdf5;
+  color: #059669;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 6px;
+  border: 1px solid #a7f3d0;
+}
+
+body.dark-mode .detail-badge-halal {
+  background-color: #064e3b;
+  color: #6ee7b7;
+  border-color: #047857;
+}
+
+.detail-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-color);
+  line-height: 1.25;
+}
+
+.detail-unit-price {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--orange);
+  white-space: nowrap;
+}
+
+.detail-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.detail-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.spec-card {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.dark-mode .spec-card {
+  background-color: #0f172a;
+  border-color: #334155;
+}
+
+.spec-icon {
+  font-size: 1.4rem;
+}
+
+.spec-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.spec-value {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+.detail-ingredients-box {
+  background-color: var(--orange-light);
+  border: 1px solid #fed7aa;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 24px;
+}
+
+body.dark-mode .detail-ingredients-box {
+  background-color: #27140a;
+  border-color: #7c2d12;
+}
+
+.ingredients-heading {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #9a3412;
+  margin-bottom: 4px;
+}
+
+body.dark-mode .ingredients-heading {
+  color: #fdba74;
+}
+
+.ingredients-text {
+  font-size: 0.88rem;
+  color: #431407;
+  line-height: 1.5;
+}
+
+body.dark-mode .ingredients-text {
+  color: #fed7aa;
+}
+
+.detail-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--border-light);
+}
+
+body.dark-mode .detail-footer {
+  border-top-color: #334155;
+}
+
+.detail-stepper {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius-full);
+  padding: 4px;
+}
+
+body.dark-mode .detail-stepper {
+  background-color: #0f172a;
+  border-color: #334155;
+}
+
+.detail-step-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+body.dark-mode .detail-step-btn {
+  background-color: #334155;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.detail-step-btn:hover {
+  background-color: var(--orange);
+  color: #ffffff;
+}
+
+.detail-quantity {
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 0 14px;
+}
+
+.detail-add-btn-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.detail-add-cart-btn {
+  width: 100%;
+  background-color: var(--orange);
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 6px 18px var(--orange-glow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.detail-add-cart-btn:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 102, 0, 0.45);
+}
+
+.detail-total-pill {
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   5. FOOTER (Manzil va Telefon)
+   ========================================================================= */
+.footer {
+  background-color: var(--bg-color);
+  border-top: 1.5px solid var(--border-light);
+  padding: 40px 0 20px;
+  margin-top: auto;
+  transition: var(--transition);
+}
+
+body.dark-mode .footer {
+  background-color: #070d19;
+  border-top-color: #1e293b;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+}
+
+.footer-brand {
+  max-width: 320px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.footer-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-bottom: 4px;
+}
+
+.footer-item {
+  font-size: 0.95rem;
+  color: var(--text-color);
+}
+
+.footer-link {
+  color: var(--orange);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-light);
+  padding-top: 16px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+body.dark-mode .footer-bottom {
+  border-top-color: #1e293b;
+}
+
+/* ==========================================================================
+   SAVAT MODAL
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg);
+  max-width: 480px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-color);
+}
+
+body.dark-mode .modal-content {
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+body.dark-mode .modal-header {
+  border-bottom-color: #334155;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.modal-close-btn {
+  background: transparent;
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.modal-close-btn:hover {
+  background-color: #f1f5f9;
+  color: var(--text-color);
+}
+
+body.dark-mode .modal-close-btn:hover {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cart-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background-color: #fdfdfd;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+body.dark-mode .cart-item-row {
+  background-color: #0f172a;
+  border-color: #334155;
+}
+
+.cart-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-item-emoji {
+  font-size: 1.6rem;
+}
+
+.cart-item-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.cart-item-price {
+  font-size: 0.85rem;
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.cart-stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-step-btn {
+  width: 28px;
+  height: 28px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+}
+
+body.dark-mode .cart-step-btn {
+  background-color: #334155;
+  border-color: #475569;
+  color: #ffffff;
+}
+
+.cart-step-btn:hover {
+  background-color: var(--orange);
+  color: #ffffff;
+  border-color: var(--orange);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-light);
+  padding-top: 16px;
+}
+
+body.dark-mode .modal-footer {
+  border-top-color: #334155;
+}
+
+.cart-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.cart-total-price {
+  color: var(--orange);
+}
+
+.cart-checkout-btn {
+  width: 100%;
+  background-color: var(--orange);
+  color: #ffffff;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 14px var(--orange-glow);
+}
+
+.cart-checkout-btn:hover {
+  background-color: var(--orange-hover);
+}
+
+/* Toast xabari */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  border-left: 4px solid var(--orange);
+  z-index: 300;
+  animation: slideUp 0.3s ease;
+}
+
+body.dark-mode .toast {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-left: 4px solid var(--orange);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   RESPONSIVE MOSLASHUV
+   Kompyuterda 4 ustun, telefonda 2 ustun
+   ========================================================================== */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .food-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .hero-subtitle {
+    margin: 0 auto 20px;
+  }
+
+  .hero-image-wrap {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  /* Telefonda 2 ustun */
+  .food-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .food-card {
+    padding: 16px 10px 14px;
+    border-radius: 16px;
+  }
+
+  .food-img-circle {
+    width: 76px;
+    height: 76px;
+    margin-bottom: 10px;
+  }
+
+  .food-img {
+    width: 66px;
+    height: 66px;
+  }
+
+  .food-emoji {
+    font-size: 2.3rem;
+  }
+
+  .food-name {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .food-price {
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+  }
+
+  .add-to-cart-btn {
+    padding: 9px;
+    font-size: 0.85rem;
+  }
+
+  .categories-list {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+  }
+
+  .categories-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .detail-specs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-toggle-label {
+    display: none; /* Telefonda faqat quyosh/oy ikonkasi ko'rinadi */
+  }
+
+  .theme-toggle-btn {
+    padding: 8px 10px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
